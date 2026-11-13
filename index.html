@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mensajes para los egresados · Promoción 2026</title>
+<link rel="icon" href="escudo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #0b0e15; --fondo2: #1b2231; --oro: #c9a45c; --crema: #f3ead8; --texto: #e9dcc2;
+    --suave: rgba(233,220,194,0.68); --campo: rgba(255,255,255,0.06); --borde: rgba(201,164,92,0.35);
+    --error: #ff8f80; --ok: #9fd8a8;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--fondo); }
+  body {
+    margin: 0; min-height: 100vh; color: var(--texto); font-family: Montserrat, system-ui, sans-serif;
+    background: radial-gradient(ellipse 90% 60% at 50% 0%, var(--fondo2) 0%, var(--fondo) 70%);
+    padding: 32px 16px 56px;
+  }
+  main { max-width: 620px; margin: 0 auto; }
+  header { text-align: center; }
+  header img { width: 104px; height: auto; filter: drop-shadow(0 8px 24px rgba(201,164,92,0.25)); }
+  .chico { margin: 18px 0 6px; font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro); }
+  h1 { margin: 0; font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; font-size: clamp(34px, 8vw, 50px); color: var(--crema); line-height: 1.1; }
+  .linea { width: 160px; height: 1px; margin: 22px auto; background: linear-gradient(90deg, transparent, var(--oro), transparent); }
+  .intro { font-size: 16px; line-height: 1.6; color: var(--suave); text-align: center; margin: 0 0 28px; }
+  form { display: grid; gap: 22px; }
+  label { display: block; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--oro); margin-bottom: 8px; }
+  .ayuda { font-size: 14px; color: var(--suave); margin: -2px 0 8px; line-height: 1.5; }
+  select, textarea, input {
+    width: 100%; font: inherit; font-size: 17px; color: var(--crema); background: var(--campo);
+    border: 1px solid var(--borde); border-radius: 10px; padding: 14px; outline: none;
+  }
+  select option, select optgroup { color: #111; background: #fff; }
+  textarea { min-height: 220px; resize: vertical; line-height: 1.55; font-family: "Playfair Display", serif; font-size: 19px; }
+  select:focus, textarea:focus, input:focus { border-color: var(--oro); box-shadow: 0 0 0 3px rgba(201,164,92,0.2); }
+  .contador { text-align: right; font-size: 13px; color: var(--suave); margin-top: 6px; }
+  .contador.lleno { color: var(--error); }
+  button {
+    font: inherit; font-size: 17px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+    color: #1a1407; background: linear-gradient(180deg, #e2c27f, var(--oro)); border: 0; border-radius: 999px; padding: 16px 28px;
+  }
+  button:disabled { opacity: 0.55; cursor: wait; }
+  .estado { min-height: 24px; text-align: center; font-size: 15px; }
+  .estado.error { color: var(--error); }
+  .gracias { display: none; text-align: center; padding: 28px 8px; }
+  .gracias h2 { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; font-size: 34px; color: var(--crema); margin: 0 0 12px; }
+  .gracias p { color: var(--suave); line-height: 1.6; margin: 0 0 22px; }
+  .gracias button { background: transparent; color: var(--oro); border: 1px solid var(--borde); }
+  .oculto { position: absolute; left: -9999px; }
+  footer { margin-top: 40px; text-align: center; font-size: 13px; color: rgba(233,220,194,0.45); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="escudo.png" alt="Escudo del CIERG">
+    <p class="chico">CIERG · Promoción 2026</p>
+    <h1>Un mensaje para tu egresado</h1>
+    <div class="linea"></div>
+    <p class="intro">Estamos preparando el video de egresados para la cena de fin de año. Escribí unas palabras para tu hijo o hija: van a aparecer en pantalla junto a su foto.</p>
+  </header>
+
+  <form id="form" novalidate>
+    <div>
+      <label for="alumno">Alumno o alumna</label>
+      <select id="alumno" required>
+        <option value="">Elegí de la lista…</option>
+      </select>
+    </div>
+    <div>
+      <label for="mensaje">Tu mensaje</label>
+      <p class="ayuda">Puede ser corto o largo. Si termina con un saludo («¡Te amamos!»), lo mostramos en su propio renglón.</p>
+      <textarea id="mensaje" maxlength="800" required placeholder="¡Lo lograste! Estamos muy orgullosos de vos…"></textarea>
+      <div class="contador" id="contador">0 / 800</div>
+    </div>
+    <div>
+      <label for="firma">¿Quién lo firma?</label>
+      <input id="firma" maxlength="80" placeholder="Mamá, Papá y Sofi" autocomplete="off">
+    </div>
+    <div class="oculto" aria-hidden="true"><label for="web">No completar</label><input id="web" tabindex="-1" autocomplete="off"></div>
+    <button id="enviar" type="submit">Enviar mensaje</button>
+    <div class="estado" id="estado" role="status"></div>
+  </form>
+
+  <section class="gracias" id="gracias">
+    <h2>¡Gracias!</h2>
+    <p>Recibimos tu mensaje para <b id="para"></b>. Va a estar en el video de la cena.</p>
+    <button id="otro" type="button">Enviar otro mensaje</button>
+  </section>
+
+  <footer>Los mensajes solo los ve quien arma el video.</footer>
+</main>
+
+<script type="module">
+/* Datos públicos del proyecto Firebase (identifican al proyecto, no dan acceso).
+   Lo que protege los mensajes son las reglas de database.rules.json: solo se
+   pueden crear mensajes nuevos; nadie puede leerlos ni borrarlos desde la web. */
+const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyAKN75BgxlaAJH1hxMbpYRqZROsc-JO9FI',
+  authDomain: 'viborita-neon.firebaseapp.com',
+  databaseURL: 'https://viborita-neon-default-rtdb.firebaseio.com',
+  projectId: 'viborita-neon',
+  appId: '1:1000000440034:web:0b8b66484104ef1436c0bb',
+};
+const SDK = 'https://www.gstatic.com/firebasejs/13.1.0/';
+
+const CURSOS = {
+  "6° Economía": ["Mateo Valentino Cabral", "Melina Lencinas González", "Bricio Marcolini", "Joaquín Ojeda Chebel", "Lis Marthina Segovia de los Santos", "Victoria Naiara Solís"],
+  "6° HB": ["Valentín Aránguiz", "Bruno Baiza", "Uma Baliño", "Enzo Cóccaro", "Franco Martín Cresta", "Sofía Cruz", "Sebastián Cruz Salazar", "Ignacio Díaz", "Máximo Filosa", "Fiama Garin", "Renata González Russmann", "Fausto Krause", "Valentina Montú D'Agostini", "Facundo Muñoz", "Bautista Puccio", "Máximo Simon", "Tobías Joaquín Torres", "Mateo Ezequiel Uribe Torres"],
+  "6° Ciencias Naturales": ["Constanza Anahí Alvarado Haro", "María Pía Bertossi", "Lorenzo Escudero", "Máximo Guereta", "Joaquín Romero González", "Agustina Aylén Salinas", "Marisela Luciana Sandoval"],
+};
+
+const $ = id => document.getElementById(id);
+const sel = $('alumno');
+for (const [curso, nombres] of Object.entries(CURSOS)) {
+  const g = document.createElement('optgroup');
+  g.label = curso;
+  for (const n of nombres) {
+    const o = document.createElement('option');
+    o.value = curso + '|' + n;
+    o.textContent = n;
+    g.append(o);
+  }
+  sel.append(g);
+}
+
+const msj = $('mensaje');
+const contar = () => {
+  $('contador').textContent = msj.value.length + ' / 800';
+  $('contador').classList.toggle('lleno', msj.value.length >= 800);
+};
+msj.addEventListener('input', contar);
+
+let fb = null;
+async function conectar() {
+  if (fb) return fb;
+  const [{ initializeApp }, auth, db] = await Promise.all([
+    import(SDK + 'firebase-app.js'), import(SDK + 'firebase-auth.js'), import(SDK + 'firebase-database.js'),
+  ]);
+  const app = initializeApp(FIREBASE_CONFIG, 'mensajes');
+  const a = auth.getAuth(app);
+  if (!a.currentUser) await auth.signInAnonymously(a);
+  fb = { db: db.getDatabase(app), ref: db.ref, push: db.push, set: db.set, serverTimestamp: db.serverTimestamp, uid: a.currentUser.uid };
+  return fb;
+}
+
+function estado(texto, error = false) {
+  $('estado').textContent = texto;
+  $('estado').classList.toggle('error', error);
+}
+
+$('form').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  if ($('web').value) return;                 // trampa para robots
+  const [curso, alumno] = sel.value.split('|');
+  const texto = msj.value.trim().replace(/\s+\n/g, '\n');
+  const firma = $('firma').value.trim();
+  if (!alumno) { estado('Elegí el alumno o la alumna de la lista.', true); sel.focus(); return; }
+  if (texto.length < 3) { estado('Escribí el mensaje antes de enviar.', true); msj.focus(); return; }
+  $('enviar').disabled = true;
+  estado('Enviando…');
+  try {
+    const f = await conectar();
+    const nuevo = f.push(f.ref(f.db, 'egresados2026/mensajes'));
+    await f.set(nuevo, { curso, alumno, mensaje: texto, firma, uid: f.uid, at: f.serverTimestamp() });
+    $('para').textContent = alumno;
+    $('form').style.display = 'none';
+    $('gracias').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    estado('');
+  } catch (e) {
+    console.error(e);
+    estado('No se pudo enviar. Revisá la conexión e intentá de nuevo.', true);
+  } finally {
+    $('enviar').disabled = false;
+  }
+});
+
+$('otro').addEventListener('click', () => {
+  sel.value = ''; msj.value = ''; $('firma').value = ''; contar();
+  $('gracias').style.display = 'none';
+  $('form').style.display = 'grid';
+});
+</script>
+</body>
+</html>
