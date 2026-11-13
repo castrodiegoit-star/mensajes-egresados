@@ -39,6 +39,7 @@
   select option, select optgroup { color: #111; background: #fff; }
   textarea { min-height: 220px; resize: vertical; line-height: 1.55; font-family: "Playfair Display", serif; font-size: 19px; }
   select:focus, textarea:focus, input:focus { border-color: var(--oro); box-shadow: 0 0 0 3px rgba(201,164,92,0.2); }
+  .nota { margin: 8px 0 0; font-size: 13px; font-style: italic; }
   .contador { text-align: right; font-size: 13px; color: var(--suave); margin-top: 6px; }
   .contador.lleno { color: var(--error); }
   button {
@@ -72,6 +73,7 @@
       <select id="alumno" required>
         <option value="">Elegí de la lista…</option>
       </select>
+      <p class="ayuda nota">¿No encontrás a tu hijo o hija? Es porque ya recibimos su mensaje.</p>
     </div>
     <div>
       <label for="mensaje">Tu mensaje</label>
