@@ -78,8 +78,8 @@
     <div>
       <label for="mensaje">Tu mensaje</label>
       <p class="ayuda">Puede ser corto o largo. Si termina con un saludo («¡Te amamos!»), lo mostramos en su propio renglón.</p>
-      <textarea id="mensaje" maxlength="800" required placeholder="¡Lo lograste! Estamos muy orgullosos de vos…"></textarea>
-      <div class="contador" id="contador">0 / 800</div>
+      <textarea id="mensaje" maxlength="600" required placeholder="¡Lo lograste! Estamos muy orgullosos de vos…"></textarea>
+      <div class="contador" id="contador">0 / 600</div>
     </div>
     <div>
       <label for="firma">¿Quién lo firma?</label>
@@ -134,8 +134,8 @@ for (const [curso, nombres] of Object.entries(CURSOS)) {
 
 const msj = $('mensaje');
 const contar = () => {
-  $('contador').textContent = msj.value.length + ' / 800';
-  $('contador').classList.toggle('lleno', msj.value.length >= 800);
+  $('contador').textContent = msj.value.length + ' / 600';
+  $('contador').classList.toggle('lleno', msj.value.length >= 600);
 };
 msj.addEventListener('input', contar);
 
